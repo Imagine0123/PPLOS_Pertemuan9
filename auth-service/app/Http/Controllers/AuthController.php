@@ -16,19 +16,19 @@ class AuthController extends Controller
             'name' => 'required|string|max:100',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
-            'role' => 'nullable|in:admin,customer',
+            'role' => 'nullable|in:admin,customer'
         ]);
 
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => $data['role'] ?? 'customer',
+            'role' => $data['role'] ?? 'customer'
         ]);
 
         return response()->json([
-            'message' => 'User registered',
-            'user' => $user,
+            'message' => 'User registered successfully',
+            'user' => $user
         ], 201);
     }
 
@@ -36,13 +36,15 @@ class AuthController extends Controller
     {
         $data = $request->validate([
             'email' => 'required|email',
-            'password' => 'required|string',
+            'password' => 'required|string'
         ]);
 
         $user = User::where('email', $data['email'])->first();
 
         if (!$user || !Hash::check($data['password'], $user->password)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+            return response()->json([
+                'message' => 'Invalid credentials'
+            ], 401);
         }
 
         $payload = [
@@ -51,20 +53,26 @@ class AuthController extends Controller
             'email' => $user->email,
             'role' => $user->role,
             'iat' => time(),
-            'exp' => time() + 60 * 60 * 24, // 1 day
+            'exp' => time() + (60 * 60 * 24) // 1 day expiration
         ];
 
-        $token = JWT::encode($payload, env('JWT_SECRET'), 'HS256');
+        $token = JWT::encode(
+            $payload,
+            env('JWT_SECRET'),
+            'HS256'
+        );
 
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
-            'user' => $user,
+            'user' => $user
         ]);
     }
 
     public function profile(Request $request)
     {
-        return response()->json($request->user_data);
+        return response()->json([
+            'user' => $request->user_data
+        ]);
     }
 }
