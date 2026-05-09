@@ -1,0 +1,72 @@
+# Laravel
+/vendor
+/node_modules
+/public/build
+/public/hot
+/storage/*.key
+/storage/app/public
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*
+
+# Environment files
+.env
+.env.backup
+.env.production
+.env.local
+.env.testing
+
+# Composer
+composer.lock
+
+# NPM
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE / Editor
+/.idea
+/.vscode
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# PHPUnit / Pest
+.phpunit.result.cache
+
+# Laravel Pint
+.pint.cache
+
+# Coverage reports
+coverage/
+coverage.xml
+
+# Docker
+docker-compose.override.yml
+
+# Misc
+*.log
+*.cache
+
+# RabbitMQ local data (if mounted locally)
+rabbitmq_data/
+
+# Build artifacts
+dist/
+build/
+
+# SQLite databases
+*.sqlite
+
+# Ignore generated API docs if needed
+/public/docs
+
+# Ignore temporary files
+tmp/
+temp/
